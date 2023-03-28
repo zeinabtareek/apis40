@@ -9,13 +9,14 @@ class HomeController extends GetxController {
   final url =
       'https://newsapi.org/v2/top-headlines?country=eg&category=business&apiKey=83a16eac1752497383cde0805ec13a91';
 
+  final baseUrl='https://newsapi.org/v2/top-headlines';
   @override
   void onInit() async {
 // await getNews();
+    await getNewFunc();
   }
 
   getNews(String category) async {
-
     try {
       final response = await http.get(Uri.parse(
           'https://newsapi.org/v2/top-headlines?country=us&category=$category&apiKey=83a16eac1752497383cde0805ec13a91'));
@@ -28,6 +29,26 @@ class HomeController extends GetxController {
       print(e);
     }
   }
+  
+  
+  getNewFunc()async{ //req => response
+      final response =await http.get(Uri.parse('https://newsapi.org/v2/top-headlines?country=eg&category=business&apiKey=83a16eac1752497383cde0805ec13a91'));
+          print(response.body);
+          print(response.statusCode);
+          if(response.statusCode==200){
+         return   NewsModel.fromJson(jsonDecode(response.body));
+
+          }
+
+
+  }
+  
+  
+  
+  
+  
+  
+  
 
   ///bottomNavBar
   final currentIndex = 0.obs;
@@ -35,6 +56,9 @@ class HomeController extends GetxController {
   onTap(v) {
     currentIndex.value = v;
   }
+
+
+
 }
 
 ///Firebase
@@ -48,7 +72,6 @@ class HomeController extends GetxController {
 ///APIs
 //1-test endPoint  (setUp ) =>200
 //2-dart model for each end point ..varibales, constructor , tojjson , fromJson
-
 //3-package
 //4- implement api consuming (Func)
 //5-convert json  Dart MModel(Object -NewsMModel)

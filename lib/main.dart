@@ -6,7 +6,9 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'bottom_nav_bar/botom_nav_bar.dart';
 import 'home/controller/home.dart';
 import 'home/screen/home.dart';
+import 'package:http/http.dart'as http;
 
+import 'login_screen/signUp_screen.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -32,10 +34,31 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home:  Home()
-      home:  BottomNvBarScreen()
+      home:  SignUpScreen()
+      // home:  BottomNvBarScreen()
       // home:   MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 
+class Test extends StatelessWidget {
+    Test({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+final controller=Get.put(HomeController());
+    return Scaffold(
+      body: Column(
+        children: [
+          TextButton(onPressed: () async {
+            controller.getNewFunc();
+            // print('#####');
+            // final response =await http.get(Uri.parse('https://newsapi.org/v2/top-headlines?country=eg&category=business&apiKey=83a16eac1752497383cde0805ec13a91'));
+            // print(response.body);
+            // print(response.statusCode);
+          }, child: Text('click me'))
+        ],
+      ),
+    );
+  }
+}
